@@ -13,14 +13,19 @@ const Home = () => {
     const [searchValue, setSearchValue] = useState('');
     const [results, setResult] = useState([]);
     const [totalCount, setTotalCount] = useState(null);
-    const color = useColorModeValue("black", "white")
+    const color = useColorModeValue('black', 'white');
 
     const handleSearchValue = (value) => {
         setSearchValue(value);
     }
 
-    const checkIfButtonIsEnabled = () => {
+    const checkIfSearchButtonIsEnabled = () => {
         if (searchValue.length) return false;
+        return true;
+    }
+
+    const checkIfClearButtonIsEnabled = () => {
+        if (results.length) return false;
         return true;
     }
 
@@ -61,14 +66,15 @@ const Home = () => {
                     <Box>
                         <Input w='80vw' onKeyPress={(e) => handleKeyPress(e)} value={searchValue} placeholder='Search Github' size="lg" onChange={(e) => handleSearchValue(e.target.value)} />
                     </Box>
-                    <Box>
-                        <PrimaryButton onClick={() => handleSearch()} disabled={checkIfButtonIsEnabled()} copy='Search'/>
-                    </Box>
+                    <HStack>
+                        <PrimaryButton onClick={() => handleSearch()} disabled={checkIfSearchButtonIsEnabled()} copy='Search'/>
+                        <PrimaryButton onClick={() => resetState()} disabled={checkIfClearButtonIsEnabled()} copy='Clear'/>
+                    </HStack>
                 </VStack>
                 {
                     totalCount === 0 ? 
                     <Center p='1rem'>  
-                           <Error handlClick={() => resetState()}/>
+                        <Error handlClick={() => resetState()}/>
                     </Center> : null
                 }
                 {
