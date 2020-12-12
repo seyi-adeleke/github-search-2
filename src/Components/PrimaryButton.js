@@ -16,4 +16,8 @@ PrimaryButton.propTypes = {
     disabled: PropTypes.bool,
 };
 
+PrimaryButton.defaultProps = {
+    disabled: false,
+}
+
 export default PrimaryButton;
