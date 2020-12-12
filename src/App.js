@@ -5,7 +5,7 @@ import Home from './Pages/Home';
 
 const App = () => {
   return (
-    <div className='App'>
+    <div>
       <div>
         <ColorMode />
       </div>

@@ -14,8 +14,20 @@ const User = (url) => {
         getData();
     }, []);
 
+    const handleClick = () => {
+        window.open(userDetails.html_url);
+    }
     return (
-        <Flex alignContent='flex-start' width='100%' mt='1rem' border='1px solid #E2E8F0' padding='1rem'>
+        <Box 
+            _hover={{boxShadow: '5px 10px 8px #888888', cursor: 'pointer'}} 
+            display='flex' 
+            alignContent='flex-start' 
+            width='100%' 
+            mt='1rem' 
+            border='1px solid #E2E8F0'
+            padding='1rem'
+            onClick={() => handleClick()}
+        >
             <HStack spacing="24px">
                 <Box>
                     <Image   
@@ -46,28 +58,32 @@ const User = (url) => {
                     </Flex>
                 </Box>
             </HStack>
-        </Flex>   
+        </Box>   
     )
 }
 
-const Users = ({ data, count }) => {
 
-    return (
-        <Flex flexDirection='column' pt='1rem'>
-           <Flex>
-                <p>{count} User Result(s)</p>
-           </Flex>
-           <Divider />
-           {
-               data.map(user => 
-               <Fragment key={user.id}>
-                <User url={user.url}/>
-               </Fragment>)
-           }
-        </Flex>
-        )
+const CountCopy = (count) => {
+    if (count === 1) return 'User Result Found';
+    return 'User Results Found';
 }
 
+const Users = ({ data, count }) => {
+    return (
+        <Flex flexDirection='column' pt='1rem'>
+            <Flex>
+                <p>{`${count}  ${CountCopy(count)}`}</p>
+            </Flex>
+            <Divider />
+            {
+                 data.map(user => 
+                    <Fragment key={user.id}>
+                        <User url={user.url}/>
+                    </Fragment>)
+            }
+        </Flex>
+    )
+}
 Users.propTypes = {
     data: PropTypes.array.isRequired,
 };
